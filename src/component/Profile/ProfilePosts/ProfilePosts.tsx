@@ -1,12 +1,16 @@
 import React from "react";
 import style from './ProfilePosts.module.css'
-import {log} from "util";
+
 
 export const ProfilePosts = () => {
+    let newPost = React.createRef<HTMLTextAreaElement>();
+    const addPost = () => {
+        alert(newPost.current?.value)
+    }
     return (
         <div className={style.container}>
-            <textarea className={style.textarea} placeholder={'Что у вас нового ?'}></textarea>
-            <button>Отправить</button>
+            <textarea ref={newPost} className={style.textarea} placeholder={'Что у вас нового ?'}></textarea>
+            <button onClick={addPost}>Отправить</button>
         </div>
     )
 }
