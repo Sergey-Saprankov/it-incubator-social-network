@@ -1,0 +1,17 @@
+.container {
+    width: 70%;
+    margin-right: 5px;
+}
+
+.textarea {
+    padding: 5px;
+    width: 100%;
+    min-height: 30px;
+    background-color: #222;
+    border: 1px solid #2f2f2f;
+    border-radius: 8px;
+    resize: none;
+    color: #e6e3e1;
+
+    margin-bottom: 10px;
+}

@@ -1,0 +1,42 @@
+.nav {
+    width: 15vw;
+    height: inherit;
+    margin-right: 5px;
+}
+
+.navList {
+    padding: 10px 0;
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.listItem {
+    padding: 10px;
+    list-style: none;
+    border-radius: 3px;
+}
+
+.listItem:hover {
+    background-color: #262626;
+}
+
+.listLink {
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+    color: #e6e3e1
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 3px;
+}
+
+.linkContainer {
+    display: flex;
+    align-items: center;
+}

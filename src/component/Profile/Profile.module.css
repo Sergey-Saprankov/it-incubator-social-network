@@ -1,0 +1,11 @@
+.container {
+    width: 85vw;
+    height: 1px;
+    min-height: 90vh;
+}
+
+.flexWrapper {
+    display: flex;
+    height: 1px;
+    min-height: 48vh;
+}

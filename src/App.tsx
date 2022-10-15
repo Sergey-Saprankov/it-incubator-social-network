@@ -1,26 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Header} from "./component/Header/Header";
+import {Sidebar} from "./component/Sidebar/Sidebar";
+import {Profile} from "./component/Profile/Profile";
+import {Dialogs} from "./component/Dialogs/Dialogs";
+import {BrowserRouter, Redirect, Route} from "react-router-dom";
+import {AppType} from "./type/type";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+const App: React.FC<AppType> = ({data}) => {
+    const {Dialogs: dialogsData, dataFriend} = data;
+    return (
+        <BrowserRouter>
+            <>
+                <Header/>
+                <div className={'mainWrapper'}>
+                    <div className={'container'}>
+                        <Sidebar/>
+                        <Route exact path="/" render={() => (
+                            <Redirect to="/home"/>
+                        )}/>
+                        <Route path={'/home'} render={() => <Profile dataFriend={dataFriend}/>}/>
+                        <Route path={'/dialogs'} render={() => <Dialogs  dialogsData={dialogsData}/>}/>
+                    </div>
+                </div>
+            </>
+        </BrowserRouter>
+    );
 }
 
 export default App;
