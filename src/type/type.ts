@@ -14,11 +14,16 @@ export type FriendsType = {
 }
 
 export type DialogsType = {
-    Dialog: DialogType[]
+    dialog: DialogType[]
+}
+
+export type MessagePageType = {
+    messages: DialogType[]
+    dialogs: DialogsType
 }
 
 export type DataType  = {
-    Dialogs: DialogsType
+    messagesPage: MessagePageType
     dataFriend: FriendsType[]
 }
 

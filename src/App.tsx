@@ -9,7 +9,8 @@ import {AppType} from "./type/type";
 
 
 const App: React.FC<AppType> = ({data}) => {
-    const {Dialogs: dialogsData, dataFriend} = data;
+    const {dataFriend, messagesPage} = data;
+    console.log(messagesPage)
     return (
         <BrowserRouter>
             <>
@@ -21,7 +22,7 @@ const App: React.FC<AppType> = ({data}) => {
                             <Redirect to="/home"/>
                         )}/>
                         <Route path={'/home'} render={() => <Profile dataFriend={dataFriend}/>}/>
-                        <Route path={'/dialogs'} render={() => <Dialogs  dialogsData={dialogsData}/>}/>
+                        <Route path={'/dialogs'} render={() => <Dialogs messagesPage={messagesPage}/>}/>
                     </div>
                 </div>
             </>

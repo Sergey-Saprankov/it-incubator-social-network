@@ -1,37 +1,33 @@
 import React from "react";
 import style from "./Message.module.css";
-import avatar from '../../../img/avatar.jpg'
+import {MessagePageType} from "../../../type/type";
 
-export const Message = () => {
+type MessageType = {
+    messagesPage: MessagePageType
+}
+
+export const Message:React.FC<MessageType> = ({messagesPage}) => {
+    const messageList = messagesPage.messages.map(({id, src, title, description, alt}) => {
+        return (
+            <li key={id} className={style.listItem}>
+                <div className={style.flexWrapper}>
+                    <div>
+                        <img className={style.img}
+                             src={src}
+                             alt={alt}/>
+                    </div>
+                    <div className={style.textWrapper}>
+                        <div className={style.title}>{title}</div>
+                        <p className={style.description}>{description}</p>
+                    </div>
+                </div>
+            </li>
+        )
+    })
     return (
         <div className={style.container}>
             <ul className={style.listItems}>
-                <li className={style.listItem}>
-                    <div className={style.flexWrapper}>
-                        <div>
-                            <img className={style.img}
-                                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyT8tA9swj_AdzROoQIfURlAyPIOc3_n5EBQ&usqp=CAU"
-                                 alt=""/>
-                        </div>
-                        <div className={style.textWrapper}>
-                            <div className={style.title}>Иван</div>
-                            <p className={style.description}>Позвони мне в 5</p>
-                        </div>
-                    </div>
-                </li>
-                <li className={style.listItem}>
-                    <div className={style.flexWrapper}>
-                        <div>
-                            <img className={style.img}
-                                 src={avatar}
-                                 alt=""/>
-                        </div>
-                        <div className={style.textWrapper}>
-                            <div className={style.title}>Я</div>
-                            <p className={style.description}>Привет</p>
-                        </div>
-                    </div>
-                </li>
+                {messageList}
             </ul>
             <div className={style.textareaFlex}>
                 <textarea className={style.textarea}></textarea>

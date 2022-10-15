@@ -1,8 +1,9 @@
 import {v1} from "uuid";
+import avatar from '../img/avatar.jpg'
 
 export const state = {
-    Dialogs: {
-        Dialog: [
+    messagesPage: {
+        messages: [
             {
                 id: v1(),
                 src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyT8tA9swj_AdzROoQIfURlAyPIOc3_n5EBQ&usqp=CAU",
@@ -12,21 +13,38 @@ export const state = {
             },
             {
                 id: v1(),
-                src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVdssuPAVWmU_isiO4aP3ybsEWdc_IEonIvw&usqp=CAU",
+                src: avatar,
                 alt: "dialog",
-                title: "Мария",
-                description: 'Гоу в кино'
-            },
-            {
-                id: v1(),
-                src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqxip991oVlIE0GHvVuYBJF32NXceKE-Rzmw&usqp=CAU",
-                alt: "dialog",
-                title: "Толик",
-                description: 'Займи денег'
+                title: "Я",
+                description: 'Привет'
             }
-        ]
+        ],
+        dialogs: {
+            dialog: [
+                {
+                    id: v1(),
+                    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyT8tA9swj_AdzROoQIfURlAyPIOc3_n5EBQ&usqp=CAU",
+                    alt: "dialog",
+                    title: "Иван",
+                    description: 'Позвони мне в 5'
+                },
+                {
+                    id: v1(),
+                    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVdssuPAVWmU_isiO4aP3ybsEWdc_IEonIvw&usqp=CAU",
+                    alt: "dialog",
+                    title: "Мария",
+                    description: 'Гоу в кино'
+                },
+                {
+                    id: v1(),
+                    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqxip991oVlIE0GHvVuYBJF32NXceKE-Rzmw&usqp=CAU",
+                    alt: "dialog",
+                    title: "Толик",
+                    description: 'Займи денег'
+                }
+            ]
+        },
     },
-
     dataFriend: [
         {
             id: v1(),
