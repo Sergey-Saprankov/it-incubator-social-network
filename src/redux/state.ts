@@ -1,7 +1,15 @@
 import {v1} from "uuid";
 import avatar from '../img/avatar.jpg'
+import { PostType } from "../type/type";
+
+
 
 export const state = {
+    postDataPage: {
+        posts: [
+            {id: v1(), src: avatar, name: "Сергей Сапранков", date: String(new Date()), post: 'text', likes: 0}
+        ]
+    },
     messagesPage: {
         messages: [
             {
@@ -77,4 +85,10 @@ export const state = {
             title: 'Дмитрий Терентьев',
         }
     ]
+}
+
+
+export const addPost = (text: string) => {
+    const newPost = {id: v1(), src: avatar, name: "Сергей Сапранков", date: String(new Date()), post: text, likes: 0}
+    state.postDataPage.posts.push(newPost);
 }

@@ -1,6 +1,12 @@
-.container {
+.wrapper {
     width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
     margin-right: 5px;
+    margin-bottom: 15px;
 }
 
 .textarea {

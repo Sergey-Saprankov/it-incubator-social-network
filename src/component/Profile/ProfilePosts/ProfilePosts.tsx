@@ -1,16 +1,30 @@
 import React from "react";
 import style from './ProfilePosts.module.css'
+import { Post } from "./Post/Post";
+import { PostDataPageType} from "../../../type/type";
 
+type ProfilePostsType = {
+    postDataPage: PostDataPageType
+    addPost: (text: string) => void
+}
 
-export const ProfilePosts = () => {
+export const ProfilePosts:React.FC<ProfilePostsType> = ({postDataPage, addPost}) => {
+    const {posts} = postDataPage
+
     let newPost = React.createRef<HTMLTextAreaElement>();
-    const addPost = () => {
-        alert(newPost.current?.value)
+    const addNewPost = () => {
+       if(newPost.current?.value) addPost(newPost.current?.value) 
     }
     return (
-        <div className={style.container}>
+        <div className={style.wrapper}>
+         <div className={style.container}>
             <textarea ref={newPost} className={style.textarea} placeholder={'Что у вас нового ?'}></textarea>
-            <button onClick={addPost}>Отправить</button>
+            <button onClick={addNewPost}>Отправить</button>
         </div>
+
+        <Post posts={posts}/>
+        </div>
+       
+
     )
 }

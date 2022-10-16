@@ -6,10 +6,13 @@ import {Profile} from "./component/Profile/Profile";
 import {Dialogs} from "./component/Dialogs/Dialogs";
 import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import {AppType} from "./type/type";
+import {addPost} from "./redux/state";
+
+
 
 
 const App: React.FC<AppType> = ({data}) => {
-    const {dataFriend, messagesPage} = data;
+    const {dataFriend, messagesPage, postDataPage} = data;
     console.log(messagesPage)
     return (
         <BrowserRouter>
@@ -21,7 +24,7 @@ const App: React.FC<AppType> = ({data}) => {
                         <Route exact path="/" render={() => (
                             <Redirect to="/home"/>
                         )}/>
-                        <Route path={'/home'} render={() => <Profile dataFriend={dataFriend}/>}/>
+                        <Route path={'/home'} render={() => <Profile postDataPage={postDataPage} addPost={addPost}  dataFriend={dataFriend}/>}/>
                         <Route path={'/dialogs'} render={() => <Dialogs messagesPage={messagesPage}/>}/>
                     </div>
                 </div>

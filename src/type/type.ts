@@ -1,3 +1,5 @@
+
+
 export type DialogType = {
     id: string
     src: string
@@ -22,10 +24,34 @@ export type MessagePageType = {
     dialogs: DialogsType
 }
 
+
+
+export type  PostType = {
+    id: string
+    src: string
+    name: string
+    date: string
+    post: string
+    likes: number
+}
+
+
+
+export type PostDataPageType = {
+    posts: PostType[] 
+}
+
+
+
+
 export type DataType  = {
+    postDataPage: PostDataPageType
     messagesPage: MessagePageType
     dataFriend: FriendsType[]
+
 }
+
+
 
 export type AppType = {
     data: DataType
