@@ -1,11 +1,11 @@
 .wrapper {
-    width: 70%;
+    width: 60%;
     display: flex;
     flex-direction: column;
+    margin-right: 15px;
 }
 
 .container {
-    margin-right: 5px;
     margin-bottom: 15px;
 }
 

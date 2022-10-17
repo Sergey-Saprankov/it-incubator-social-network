@@ -1,12 +1,13 @@
 import React from "react";
 import style from "./Message.module.css";
-import {MessagePageType} from "../../../type/type";
+import {MessagePageType} from "../../../redux/state";
+
 
 type MessageType = {
     messagesPage: MessagePageType
 }
 
-export const Message:React.FC<MessageType> = ({messagesPage}) => {
+export const Message: React.FC<MessageType> = ({messagesPage}) => {
     const messageList = messagesPage.messages.map(({id, src, title, description, alt}) => {
         return (
             <li key={id} className={style.listItem}>

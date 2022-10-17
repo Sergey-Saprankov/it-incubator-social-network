@@ -1,6 +1,6 @@
 import React from "react";
 import style from './Aside.module.css'
-import {FriendsType} from "../../type/type";
+import {FriendsType} from "../../redux/state";
 
 
 

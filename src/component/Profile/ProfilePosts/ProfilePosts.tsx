@@ -1,30 +1,36 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import style from './ProfilePosts.module.css'
-import { Post } from "./Post/Post";
-import { PostDataPageType} from "../../../type/type";
+import {Post} from "./Post/Post";
+import {PostDataPageType} from "../../../redux/state";
 
 type ProfilePostsType = {
     postDataPage: PostDataPageType
     addPost: (text: string) => void
+    addNewPostText: (text: string) => void
 }
 
-export const ProfilePosts:React.FC<ProfilePostsType> = ({postDataPage, addPost}) => {
-    const {posts} = postDataPage
+export const ProfilePosts: React.FC<ProfilePostsType> = ({postDataPage, addPost, addNewPostText}) => {
+    const {posts, newPostText} = postDataPage
 
-    let newPost = React.createRef<HTMLTextAreaElement>();
+    const onChangeTextAreaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        addNewPostText(e.currentTarget.value)
+    }
+
     const addNewPost = () => {
-       if(newPost.current?.value) addPost(newPost.current?.value) 
+        addPost(newPostText)
+        addNewPostText('')
     }
     return (
         <div className={style.wrapper}>
-         <div className={style.container}>
-            <textarea ref={newPost} className={style.textarea} placeholder={'Что у вас нового ?'}></textarea>
-            <button onClick={addNewPost}>Отправить</button>
+            <div className={style.container}>
+                <textarea value={newPostText} onChange={onChangeTextAreaHandler} className={style.textarea}
+                          placeholder={'Что у вас нового ?'}></textarea>
+                <button onClick={addNewPost}>Отправить</button>
+            </div>
+
+            <Post posts={posts}/>
         </div>
 
-        <Post posts={posts}/>
-        </div>
-       
 
     )
 }

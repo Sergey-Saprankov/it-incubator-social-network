@@ -1,26 +1,37 @@
 import React from "react";
-import { PostType} from "../../../../type/type";
+import {PostType} from "../../../../redux/state";
+import style from './Post.module.css'
 
 type PostTypeProps = {
-    posts:PostType[]
+    posts: PostType[]
 }
 
-export const Post:React.FC<PostTypeProps> = ({posts}) => {
+export const Post: React.FC<PostTypeProps> = ({posts}) => {
     const [id, src, name, date, post, likes] = posts
     return (
         <div>
-            <ul>
-            {posts.map(({id, src, name, date, post, likes}) => {
-                return (
-                    <li key={id}>
-                        <img src={src} alt="avatar" />
-                        <p>{name}</p>
-                        <p>{date}</p>
-                        <p>{post}</p>
-                        <p>{likes}</p>
-                    </li>
-                )
-            })}
+            <ul className={style.items}>
+                {posts.map(({id, src, name, date, post, likes, alt}) => {
+                    return (
+                        <li className={style.item} key={id}>
+                            <div className={style.postInformationContainer}>
+                                <img className={style.postImg} src={src} alt={alt}/>
+                                <div className={style.nameDateContainer}>
+                                    <span className={style.title}>{name}</span>
+                                    <span className={style.date}>{date}</span>
+                                </div>
+                            </div>
+                            <div className={style.wrapperPostLikes}>
+                                <div className={style.postContainer}>
+                                    <span className={style.post}>{post}</span>
+                                </div>
+                                <div className={style.containerLikes}>
+                                    <span>likes: {likes}</span>
+                                </div>
+                            </div>
+                        </li>
+                    )
+                })}
             </ul>
         </div>
     )

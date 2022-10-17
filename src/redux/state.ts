@@ -1,14 +1,64 @@
 import {v1} from "uuid";
 import avatar from '../img/avatar.jpg'
-import { PostType } from "../type/type";
+
+let render = () => {
+
+}
+
+export type DialogType = {
+    id: string
+    src: string
+    alt: string
+    title: string
+    description: string
+}
+
+export type FriendsType = {
+    id: string
+    src: string
+    alt: string
+    title: string
+}
+
+export type DialogsType = {
+    dialog: DialogType[]
+}
+
+export type MessagePageType = {
+    messages: DialogType[]
+    dialogs: DialogsType
+}
 
 
+export type  PostType = {
+    id: string
+    src: string
+    alt: string
+    name: string
+    date: string
+    post: string
+    likes: number
+}
 
-export const state = {
+
+export type PostDataPageType = {
+    posts: PostType[]
+    newPostText: string
+}
+
+
+export type DataType = {
+    postDataPage: PostDataPageType
+    messagesPage: MessagePageType
+    dataFriend: FriendsType[]
+
+}
+
+
+export const state: DataType = {
     postDataPage: {
-        posts: [
-            {id: v1(), src: avatar, name: "Сергей Сапранков", date: String(new Date()), post: 'text', likes: 0}
-        ]
+        posts: [],
+        newPostText: '',
     },
     messagesPage: {
         messages: [
@@ -87,8 +137,31 @@ export const state = {
     ]
 }
 
+const datePost = (): string => {
+    let date = new Date().toString();
+    return date.split(' ').filter((el, i) => i <= 3).join(' ');
+}
+
+export const subscribe = (observer: () => void) => {
+    render = observer
+}
+
 
 export const addPost = (text: string) => {
-    const newPost = {id: v1(), src: avatar, name: "Сергей Сапранков", date: String(new Date()), post: text, likes: 0}
+    const newPost = {
+        id: v1(),
+        src: avatar,
+        alt: 'avatar',
+        name: "Сергей Сапранков",
+        date: datePost(),
+        post: text,
+        likes: Math.floor(Math.random() * 10)
+    }
     state.postDataPage.posts.push(newPost);
+    render()
+}
+
+export const addNewPostText = (text: string) => {
+    state.postDataPage.newPostText = text;
+    render()
 }
