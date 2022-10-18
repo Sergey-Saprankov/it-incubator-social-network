@@ -1,9 +1,7 @@
+import { render } from '@testing-library/react';
 import {v1} from "uuid";
 import avatar from '../img/avatar.jpg'
 
-let render = () => {
-
-}
 
 export type DialogType = {
     id: string
@@ -54,31 +52,27 @@ export type DataType = {
 
 }
 
+export type StoreType = {
+    _state: DataType
+    datePost: () => string
+    addPost: (text: string) => void
+    addNewPostText: (text: string) => void
+    _render: () => void
+    subscribe: (observer: () => void) => void
+    getState: () => DataType
+}
 
-export const state: DataType = {
-    postDataPage: {
-        posts: [],
-        newPostText: '',
-    },
-    messagesPage: {
-        messages: [
-            {
-                id: v1(),
-                src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyT8tA9swj_AdzROoQIfURlAyPIOc3_n5EBQ&usqp=CAU",
-                alt: "dialog",
-                title: "Иван",
-                description: 'Позвони мне в 5'
-            },
-            {
-                id: v1(),
-                src: avatar,
-                alt: "dialog",
-                title: "Я",
-                description: 'Привет'
-            }
-        ],
-        dialogs: {
-            dialog: [
+
+
+
+export const store: StoreType = {
+    _state: {
+        postDataPage: {
+            posts: [],
+            newPostText: '',
+        },
+        messagesPage: {
+            messages: [
                 {
                     id: v1(),
                     src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyT8tA9swj_AdzROoQIfURlAyPIOc3_n5EBQ&usqp=CAU",
@@ -88,80 +82,105 @@ export const state: DataType = {
                 },
                 {
                     id: v1(),
-                    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVdssuPAVWmU_isiO4aP3ybsEWdc_IEonIvw&usqp=CAU",
+                    src: avatar,
                     alt: "dialog",
-                    title: "Мария",
-                    description: 'Гоу в кино'
-                },
-                {
-                    id: v1(),
-                    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqxip991oVlIE0GHvVuYBJF32NXceKE-Rzmw&usqp=CAU",
-                    alt: "dialog",
-                    title: "Толик",
-                    description: 'Займи денег'
+                    title: "Я",
+                    description: 'Привет'
                 }
-            ]
+            ],
+            dialogs: {
+                dialog: [
+                    {
+                        id: v1(),
+                        src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyT8tA9swj_AdzROoQIfURlAyPIOc3_n5EBQ&usqp=CAU",
+                        alt: "dialog",
+                        title: "Иван",
+                        description: 'Позвони мне в 5'
+                    },
+                    {
+                        id: v1(),
+                        src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVdssuPAVWmU_isiO4aP3ybsEWdc_IEonIvw&usqp=CAU",
+                        alt: "dialog",
+                        title: "Мария",
+                        description: 'Гоу в кино'
+                    },
+                    {
+                        id: v1(),
+                        src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqxip991oVlIE0GHvVuYBJF32NXceKE-Rzmw&usqp=CAU",
+                        alt: "dialog",
+                        title: "Толик",
+                        description: 'Займи денег'
+                    }
+                ]
+            },
         },
+        dataFriend: [
+            {
+                id: v1(),
+                src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyT8tA9swj_AdzROoQIfURlAyPIOc3_n5EBQ&usqp=CAU',
+                alt: 'avatar',
+                title: 'Иван Иванов',
+            },
+            {
+                id: v1(),
+                src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVdssuPAVWmU_isiO4aP3ybsEWdc_IEonIvw&usqp=CAU',
+                alt: 'avatar',
+                title: 'Иван Петров',
+            },
+            {
+                id: v1(),
+                src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqxip991oVlIE0GHvVuYBJF32NXceKE-Rzmw&usqp=CAU',
+                alt: 'avatar',
+                title: 'Светлана Петрова',
+            },
+            {
+                id: v1(),
+                src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL8jEwRitlFu0tnQ6P58GkKsOEIcOR5EWdCw&usqp=CAU',
+                alt: 'avatar',
+                title: 'Игорь Сазонов',
+            },
+            {
+                id: v1(),
+                src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdApzzKwnuc3dW-T8AI7171iTRkLAkePR5Ww&usqp=CAU',
+                alt: 'avatar',
+                title: 'Дмитрий Терентьев',
+            }
+        ]
     },
-    dataFriend: [
-        {
+
+    datePost() {
+        let date = new Date().toString();
+        return date.split(' ').filter((el, i) => i <= 3).join(' ');
+    },
+
+    addPost(text: string) {
+        const newPost = {
             id: v1(),
-            src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyT8tA9swj_AdzROoQIfURlAyPIOc3_n5EBQ&usqp=CAU',
+            src: avatar,
             alt: 'avatar',
-            title: 'Иван Иванов',
-        },
-        {
-            id: v1(),
-            src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVdssuPAVWmU_isiO4aP3ybsEWdc_IEonIvw&usqp=CAU',
-            alt: 'avatar',
-            title: 'Иван Петров',
-        },
-        {
-            id: v1(),
-            src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqxip991oVlIE0GHvVuYBJF32NXceKE-Rzmw&usqp=CAU',
-            alt: 'avatar',
-            title: 'Светлана Петрова',
-        },
-        {
-            id: v1(),
-            src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL8jEwRitlFu0tnQ6P58GkKsOEIcOR5EWdCw&usqp=CAU',
-            alt: 'avatar',
-            title: 'Игорь Сазонов',
-        },
-        {
-            id: v1(),
-            src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdApzzKwnuc3dW-T8AI7171iTRkLAkePR5Ww&usqp=CAU',
-            alt: 'avatar',
-            title: 'Дмитрий Терентьев',
+            name: "Сергей Сапранков",
+            date: this.datePost(),
+            post: text,
+            likes: Math.floor(Math.random() * 10)
         }
-    ]
-}
+        this._state.postDataPage.posts.push(newPost);
+        this._render()
+    },
 
-const datePost = (): string => {
-    let date = new Date().toString();
-    return date.split(' ').filter((el, i) => i <= 3).join(' ');
-}
+    addNewPostText(text: string) {
+        this._state.postDataPage.newPostText = text;
+        this._render()
+    },
 
-export const subscribe = (observer: () => void) => {
-    render = observer
-}
+    _render() {
+        console.log('render')
+    },
 
+    subscribe(observer) {
+        this._render = observer
+    },
 
-export const addPost = (text: string) => {
-    const newPost = {
-        id: v1(),
-        src: avatar,
-        alt: 'avatar',
-        name: "Сергей Сапранков",
-        date: datePost(),
-        post: text,
-        likes: Math.floor(Math.random() * 10)
+    getState() {
+        return this._state
     }
-    state.postDataPage.posts.push(newPost);
-    render()
-}
-
-export const addNewPostText = (text: string) => {
-    state.postDataPage.newPostText = text;
-    render()
 }
