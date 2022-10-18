@@ -1,24 +1,32 @@
 import React, {ChangeEvent} from "react";
 import style from './ProfilePosts.module.css'
 import {Post} from "./Post/Post";
-import {PostDataPageType} from "../../../redux/state";
+import {
+    AddNewPostTextActionType,
+    addPostActionCreator,
+    AddPostActionType, addPostTextActionCreator,
+    PostDataPageType
+} from "../../../redux/state";
 
 type ProfilePostsType = {
     postDataPage: PostDataPageType
-    addPost: (text: string) => void
-    addNewPostText: (text: string) => void
+    dispatch: (action: AddPostActionType | AddNewPostTextActionType) => void
 }
 
-export const ProfilePosts: React.FC<ProfilePostsType> = ({postDataPage, addPost, addNewPostText}) => {
+
+
+
+
+export const ProfilePosts: React.FC<ProfilePostsType> = ({postDataPage, dispatch}) => {
     const {posts, newPostText} = postDataPage
 
     const onChangeTextAreaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        addNewPostText(e.currentTarget.value)
+        dispatch(addPostTextActionCreator(e.currentTarget.value))
     }
 
     const addNewPost = () => {
-        addPost(newPostText)
-        addNewPostText('')
+        dispatch(addPostActionCreator(newPostText))
+        dispatch(addPostTextActionCreator(''))
     }
     return (
         <div className={style.wrapper}>

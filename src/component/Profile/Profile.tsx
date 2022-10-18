@@ -3,22 +3,21 @@ import style from './Profile.module.css'
 import {ProfileHeader} from "./ProfileHeader/ProfileHeader";
 import {ProfilePosts} from "./ProfilePosts/ProfilePosts";
 import {Aside} from "../Aside/Aside";
-import {FriendsType, PostDataPageType} from "../../redux/state";
+import {AddNewPostTextActionType, AddPostActionType, FriendsType, PostDataPageType} from "../../redux/state";
 
 
 type ProfileType = {
     dataFriend: FriendsType[]
     postDataPage: PostDataPageType
-    addPost: (text: string) => void
-    addNewPostText: (text: string) => void
+    dispatch: (action: AddPostActionType | AddNewPostTextActionType) => void
 }
 
-export const Profile: React.FC<ProfileType> = ({dataFriend, postDataPage, addPost, addNewPostText}) => {
+export const Profile: React.FC<ProfileType> = ({dataFriend, postDataPage, dispatch}) => {
     return (
         <div className={style.container}>
             <ProfileHeader/>
             <div className={style.flexWrapper}>
-                <ProfilePosts addNewPostText={addNewPostText} addPost={addPost} postDataPage={postDataPage}/>
+                <ProfilePosts dispatch={dispatch}  postDataPage={postDataPage}/>
                 <Aside dataFriend={dataFriend}/>
             </div>
         </div>

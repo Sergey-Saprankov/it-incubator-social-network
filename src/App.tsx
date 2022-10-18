@@ -4,8 +4,8 @@ import {Header} from "./component/Header/Header";
 import {Sidebar} from "./component/Sidebar/Sidebar";
 import {Profile} from "./component/Profile/Profile";
 import {Dialogs} from "./component/Dialogs/Dialogs";
-import { Redirect, Route} from "react-router-dom";
-import { StoreType} from "./redux/state";
+import {Redirect, Route} from "react-router-dom";
+import {StoreType} from "./redux/state";
 
 
 type AppType = {
@@ -13,7 +13,7 @@ type AppType = {
 }
 
 const App: React.FC<AppType> = ({data}) => {
-    const {dataFriend, messagesPage, postDataPage } = data._state;
+    const {dataFriend, messagesPage, postDataPage} = data._state;
     return (
         <>
             <Header/>
@@ -24,10 +24,9 @@ const App: React.FC<AppType> = ({data}) => {
                         <Redirect to="/home"/>
                     )}/>
                     <Route path={'/home'}
-                           render={() => <Profile addNewPostText={data.addNewPostText.bind(data)}
-                                                  postDataPage={postDataPage}
-                                                  addPost={data.addPost.bind(data)}
-                                                  dataFriend={dataFriend}/>}/>
+                           render={() => <Profile postDataPage={postDataPage}
+                                                  dataFriend={dataFriend}
+                                                  dispatch={data.dispatch.bind(data)}/>}/>
                     <Route path={'/dialogs'} render={() => <Dialogs messagesPage={messagesPage}/>}/>
                 </div>
             </div>

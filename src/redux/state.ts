@@ -52,18 +52,38 @@ export type DataType = {
 
 }
 
+export type AddPostActionType = {
+    type: 'ADD-POST'
+    text: string
+}
+
+export type AddNewPostTextActionType = {
+    type: 'ADD-NEW-POST-TEXT'
+    text: string
+}
+
 export type StoreType = {
     _state: DataType
     datePost: () => string
-    addPost: (text: string) => void
-    addNewPostText: (text: string) => void
     _render: () => void
     subscribe: (observer: () => void) => void
     getState: () => DataType
+    dispatch: (action: AddPostActionType | AddNewPostTextActionType) => void
 }
 
+export const addPostActionCreator = (postText: string): AddPostActionType => {
+    return {
+        type: 'ADD-POST',
+        text: postText
+    } as const
+}
 
-
+export const addPostTextActionCreator = (postText: string): AddNewPostTextActionType => {
+    return {
+        type: 'ADD-NEW-POST-TEXT',
+        text: postText
+    } as const
+}
 
 export const store: StoreType = {
     _state: {
@@ -153,23 +173,23 @@ export const store: StoreType = {
         return date.split(' ').filter((el, i) => i <= 3).join(' ');
     },
 
-    addPost(text: string) {
-        const newPost = {
-            id: v1(),
-            src: avatar,
-            alt: 'avatar',
-            name: "Сергей Сапранков",
-            date: this.datePost(),
-            post: text,
-            likes: Math.floor(Math.random() * 10)
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            const newPost = {
+                id: v1(),
+                src: avatar,
+                alt: 'avatar',
+                name: "Сергей Сапранков",
+                date: this.datePost(),
+                post: action.text,
+                likes: Math.floor(Math.random() * 10)
+            }
+            this._state.postDataPage.posts.push(newPost);
+            this._render()
+        } else if (action.type === 'ADD-NEW-POST-TEXT') {
+            this._state.postDataPage.newPostText = action.text;
+            this._render()
         }
-        this._state.postDataPage.posts.push(newPost);
-        this._render()
-    },
-
-    addNewPostText(text: string) {
-        this._state.postDataPage.newPostText = text;
-        this._render()
     },
 
     _render() {
@@ -184,3 +204,4 @@ export const store: StoreType = {
         return this._state
     }
 }
+
