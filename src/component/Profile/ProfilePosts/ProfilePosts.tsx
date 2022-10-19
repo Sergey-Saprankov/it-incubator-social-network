@@ -2,15 +2,15 @@ import React, {ChangeEvent} from "react";
 import style from './ProfilePosts.module.css'
 import {Post} from "./Post/Post";
 import {
-    AddNewPostTextActionType,
+    ActionType,
     addPostActionCreator,
-    AddPostActionType, addPostTextActionCreator,
+     addPostTextActionCreator,
     PostDataPageType
 } from "../../../redux/state";
 
 type ProfilePostsType = {
     postDataPage: PostDataPageType
-    dispatch: (action: AddPostActionType | AddNewPostTextActionType) => void
+    dispatch: (action: ActionType) => void
 }
 
 

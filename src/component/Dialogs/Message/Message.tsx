@@ -1,13 +1,32 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import style from "./Message.module.css";
-import {MessagePageType} from "../../../redux/state";
+import {
+    ActionType, addMessageActionCreator,
+    addMessageTextActionCreator,
+    AddNewPostTextActionType,
+    AddPostActionType,
+    MessagePageType
+} from "../../../redux/state";
 
 
 type MessageType = {
     messagesPage: MessagePageType
+    dispatch: (action: ActionType) => void
 }
 
-export const Message: React.FC<MessageType> = ({messagesPage}) => {
+export const Message: React.FC<MessageType> = ({messagesPage, dispatch}) => {
+
+    const onChangeMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        console.log(messagesPage.newMessage)
+        dispatch(addMessageTextActionCreator(e.currentTarget.value))
+    }
+
+    const onClickHandler = () => {
+            dispatch(addMessageActionCreator(messagesPage.newMessage))
+            dispatch(addMessageTextActionCreator(''))
+
+    }
+
     const messageList = messagesPage.messages.map(({id, src, title, description, alt}) => {
         return (
             <li key={id} className={style.listItem}>
@@ -31,8 +50,8 @@ export const Message: React.FC<MessageType> = ({messagesPage}) => {
                 {messageList}
             </ul>
             <div className={style.textareaFlex}>
-                <textarea className={style.textarea}></textarea>
-                <button className={style.btn}>Отправить</button>
+                <textarea value={messagesPage.newMessage} onChange={onChangeMessageHandler} className={style.textarea}></textarea>
+                <button onClick={onClickHandler} className={style.btn}>Отправить</button>
             </div>
         </div>
     )

@@ -1,7 +1,15 @@
-import { render } from '@testing-library/react';
+import {render} from '@testing-library/react';
 import {v1} from "uuid";
 import avatar from '../img/avatar.jpg'
+import profileReducer from "../reducer/profile-reducer";
+import messageReducer from "../reducer/message-reducer";
 
+export const ActionType = {
+    ADD_POST : 'ADD-POST',
+    ADD_MESSAGE: 'ADD-MESSAGE',
+    ADD_NEW_POST: 'ADD-NEW-POST-TEXT',
+    ADD_MESSAGE_TEXT: 'ADD-NEW-MESSAGE-TEXT'
+}
 
 export type DialogType = {
     id: string
@@ -25,6 +33,7 @@ export type DialogsType = {
 export type MessagePageType = {
     messages: DialogType[]
     dialogs: DialogsType
+    newMessage: string
 }
 
 
@@ -42,6 +51,7 @@ export type  PostType = {
 export type PostDataPageType = {
     posts: PostType[]
     newPostText: string
+    datePost: () => string
 }
 
 
@@ -57,18 +67,33 @@ export type AddPostActionType = {
     text: string
 }
 
+export type AddMessageActionType = {
+    type: 'ADD-MESSAGE'
+    text: string
+}
+
 export type AddNewPostTextActionType = {
     type: 'ADD-NEW-POST-TEXT'
     text: string
 }
 
+export type AddNewMessageTextActionType = {
+    type: 'ADD-NEW-MESSAGE-TEXT'
+    text: string
+}
+
+export type ActionType =
+    AddPostActionType
+    | AddNewPostTextActionType
+    | AddNewMessageTextActionType
+    | AddMessageActionType
+
 export type StoreType = {
     _state: DataType
-    datePost: () => string
     _render: () => void
     subscribe: (observer: () => void) => void
     getState: () => DataType
-    dispatch: (action: AddPostActionType | AddNewPostTextActionType) => void
+    dispatch: (action: ActionType) => void
 }
 
 export const addPostActionCreator = (postText: string): AddPostActionType => {
@@ -85,13 +110,32 @@ export const addPostTextActionCreator = (postText: string): AddNewPostTextAction
     } as const
 }
 
+export const addMessageTextActionCreator = (text: string): AddNewMessageTextActionType => {
+    return {
+        type: 'ADD-NEW-MESSAGE-TEXT',
+        text: text
+    } as const
+}
+
+export const addMessageActionCreator = (text: string): AddMessageActionType => {
+    return {
+        type: 'ADD-MESSAGE',
+        text: text
+    } as const
+}
+
 export const store: StoreType = {
     _state: {
         postDataPage: {
             posts: [],
             newPostText: '',
+            datePost() {
+                let date = new Date().toString();
+                return date.split(' ').filter((el, i) => i <= 3).join(' ');
+            },
         },
         messagesPage: {
+            newMessage: '',
             messages: [
                 {
                     id: v1(),
@@ -168,28 +212,10 @@ export const store: StoreType = {
         ]
     },
 
-    datePost() {
-        let date = new Date().toString();
-        return date.split(' ').filter((el, i) => i <= 3).join(' ');
-    },
-
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            const newPost = {
-                id: v1(),
-                src: avatar,
-                alt: 'avatar',
-                name: "Сергей Сапранков",
-                date: this.datePost(),
-                post: action.text,
-                likes: Math.floor(Math.random() * 10)
-            }
-            this._state.postDataPage.posts.push(newPost);
-            this._render()
-        } else if (action.type === 'ADD-NEW-POST-TEXT') {
-            this._state.postDataPage.newPostText = action.text;
-            this._render()
-        }
+        profileReducer(this._state.postDataPage, action)
+        messageReducer(this._state.messagesPage, action)
+        this._render()
     },
 
     _render() {
@@ -204,4 +230,5 @@ export const store: StoreType = {
         return this._state
     }
 }
+
 

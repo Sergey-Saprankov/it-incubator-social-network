@@ -27,7 +27,7 @@ const App: React.FC<AppType> = ({data}) => {
                            render={() => <Profile postDataPage={postDataPage}
                                                   dataFriend={dataFriend}
                                                   dispatch={data.dispatch.bind(data)}/>}/>
-                    <Route path={'/dialogs'} render={() => <Dialogs messagesPage={messagesPage}/>}/>
+                    <Route path={'/dialogs'} render={() => <Dialogs dispatch={data.dispatch.bind(data)} messagesPage={messagesPage}/>}/>
                 </div>
             </div>
         </>

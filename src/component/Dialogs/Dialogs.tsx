@@ -2,18 +2,19 @@ import React from "react";
 import style from './Dialogs.module.css'
 import {Message} from "./Message/Message";
 import {Dialog} from "./Dialog/Dialog";
-import {MessagePageType} from "../../redux/state";
+import {ActionType, AddNewPostTextActionType, AddPostActionType, MessagePageType} from "../../redux/state";
 
 
 
 type DialogsTypeProps = {
     messagesPage:  MessagePageType
+    dispatch: (action: ActionType) => void
 }
 
-export const Dialogs: React.FC<DialogsTypeProps> = ( {messagesPage}) => {
+export const Dialogs: React.FC<DialogsTypeProps> = ( {messagesPage, dispatch}) => {
     const dialogList = messagesPage.dialogs.dialog.map(({id, src, alt, title, description}, i) => {
         return (
-            <Dialog key={id} link={i + 1} id={id} src={src} alt={alt} title={title} description={description}/>
+            <Dialog  key={id} link={i + 1} id={id} src={src} alt={alt} title={title} description={description}/>
         )
     })
 
@@ -24,7 +25,7 @@ export const Dialogs: React.FC<DialogsTypeProps> = ( {messagesPage}) => {
                     {dialogList}
                 </ul>
             </div>
-            <Message messagesPage={messagesPage}/>
+            <Message dispatch={dispatch} messagesPage={messagesPage}/>
         </div>
 
     )
