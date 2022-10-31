@@ -1,15 +1,11 @@
 import React from "react";
 import style from './Aside.module.css'
-import {FriendsType} from "../../redux/state";
+import {FriendsType} from "../../redux/type/type";
+import {MapStateToPropsType} from "./AsideContainer";
 
 
-
-type AsideType = {
-    dataFriend: FriendsType[]
-}
-
-export const Aside: React.FC<AsideType> = ({dataFriend}) => {
-    const friendList = dataFriend.map(({id, src, alt, title}) => {
+export const Aside: React.FC<MapStateToPropsType> = ({friendsData}) => {
+    const friendList = friendsData.map(({id, src, alt, title}) => {
         return (
             <li key={id} className={style.listItem}>
                 <div className={style.imgBlock}><img className={style.img} src={src} alt={alt}/></div>

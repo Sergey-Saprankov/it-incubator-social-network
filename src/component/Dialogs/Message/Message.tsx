@@ -1,29 +1,25 @@
 import React, {ChangeEvent} from "react";
 import style from "./Message.module.css";
-import {
-    ActionType, addMessageActionCreator,
-    addMessageTextActionCreator,
-    AddNewPostTextActionType,
-    AddPostActionType,
-    MessagePageType
-} from "../../../redux/state";
+import {addMessageActionCreator, addMessageTextActionCreator} from "../../../redux/message-reducer";
+import {ActionType, AddNewPostTextActionType, AddPostActionType, MessagePageType} from "../../../redux/type/type";
+import {MessagePropsType} from "./MessageContainer";
 
 
-type MessageType = {
-    messagesPage: MessagePageType
-    dispatch: (action: ActionType) => void
-}
+// type MessageType = {
+//     messagesPage: MessagePageType
+//     addMessage: (value: string) => void
+//     onChangeMessage: (value: string) => void
+// }
 
-export const Message: React.FC<MessageType> = ({messagesPage, dispatch}) => {
+export const Message: React.FC<MessagePropsType> = ({messagesPage, onChangeMessage, addMessage}) => {
 
     const onChangeMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        console.log(messagesPage.newMessage)
-        dispatch(addMessageTextActionCreator(e.currentTarget.value))
+        onChangeMessage(e.currentTarget.value)
     }
 
     const onClickHandler = () => {
-            dispatch(addMessageActionCreator(messagesPage.newMessage))
-            dispatch(addMessageTextActionCreator(''))
+        addMessage(messagesPage.newMessage)
+        onChangeMessage('')
 
     }
 
@@ -50,7 +46,8 @@ export const Message: React.FC<MessageType> = ({messagesPage, dispatch}) => {
                 {messageList}
             </ul>
             <div className={style.textareaFlex}>
-                <textarea value={messagesPage.newMessage} onChange={onChangeMessageHandler} className={style.textarea}></textarea>
+                <textarea value={messagesPage.newMessage} onChange={onChangeMessageHandler}
+                          className={style.textarea}></textarea>
                 <button onClick={onClickHandler} className={style.btn}>Отправить</button>
             </div>
         </div>

@@ -3,18 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
-import {store} from "./redux/state";
+import {store, StoreType} from "./redux/redux-store";
+import {Provider} from "react-redux";
 
 
-export const renderTree = () => {
-    ReactDOM.render(
-        <BrowserRouter>
-            <App data={store}/>
-        </BrowserRouter>,
-        document.getElementById('root')
-    );
-}
+ReactDOM.render(
+    <BrowserRouter>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </BrowserRouter>,
+    document.getElementById('root')
+);
 
-renderTree()
 
-store.subscribe(renderTree)
