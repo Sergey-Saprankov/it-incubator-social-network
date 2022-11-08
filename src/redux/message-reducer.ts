@@ -1,24 +1,23 @@
 import {v1} from "uuid";
 import avatar from "../img/avatar.jpg";
 import {
-    ActionType,
-    AddMessageActionType,
-    AddNewMessageTextActionType,
+    Action,
+    ActionType, AddMessageActionType, AddNewMessageTextActionType,
     DialogType,
     MessagePageType
 } from "./type/type";
 
-export const addMessageTextActionCreator = (text: string): AddNewMessageTextActionType => {
+export const addMessageTextActionCreator = (text: string) => {
     return {
-        type: 'ADD-NEW-MESSAGE-TEXT',
-        text: text
+        type: Action.ADD_MESSAGE_TEXT,
+        payload: text
     } as const
 }
 
-export const addMessageActionCreator = (text: string): AddMessageActionType => {
+export const addMessageActionCreator = (text: string) => {
     return {
-        type: 'ADD-MESSAGE',
-        text: text
+        type: Action.ADD_MESSAGE,
+        payload: text
     } as const
 }
 
@@ -67,15 +66,15 @@ const initialState: MessagePageType = {
     ,
 }
 
-const messageReducer = (state: MessagePageType = initialState, action: ActionType): MessagePageType => {
-    let copyState: MessagePageType;
+const messageReducer = (state: MessagePageType = initialState, action: AddMessageActionType | AddNewMessageTextActionType): MessagePageType => {
+    let stateCopy: MessagePageType;
 
     switch (action.type) {
-        case ActionType.ADD_MESSAGE_TEXT:
-            copyState = {...state};
-            copyState.newMessage = action.text;
-            return copyState;
-        case ActionType.ADD_MESSAGE:
+        case Action.ADD_MESSAGE_TEXT:
+            stateCopy = {...state};
+            stateCopy.newMessage = action.payload;
+            return stateCopy;
+        case Action.ADD_MESSAGE:
             const newMessage: DialogType = {
                 id: v1(),
                 src: avatar,
@@ -83,9 +82,9 @@ const messageReducer = (state: MessagePageType = initialState, action: ActionTyp
                 title: "Я",
                 description: state.newMessage
             }
-            copyState = {...state, messages: [...state.messages]};
-            copyState.messages.push(newMessage);
-            return copyState;
+            stateCopy = {...state, messages: [...state.messages]};
+            stateCopy.messages.push(newMessage);
+            return stateCopy;
         default:
             return state;
     }

@@ -1,0 +1,44 @@
+.container {
+    padding: 30px;
+    height: 90vh;
+    background-color: #222;
+    border: 1px solid #2f2f2f;
+    border-radius: 8px;
+    color: #e6e3e1;
+}
+
+.title {
+    margin-bottom: 20px;
+}
+
+.listItems {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+
+.listItem {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.listItem {
+    margin-bottom: 15px;
+}
+
+.imgBlock {
+    margin-right: 10px;
+}
+
+.img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.text {
+    font-size: 14px;
+    font-weight: 400;
+}

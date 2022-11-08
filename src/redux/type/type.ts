@@ -1,32 +1,34 @@
-export type AddPostActionType = {
-    type: 'ADD-POST'
-    text: string
+import {followUserAC, setUsersAC, unfollowUserAC, UserInitialStateType} from "../user-reducer";
+import {addMessageActionCreator, addMessageTextActionCreator} from "../message-reducer";
+import {addPostActionCreator, addPostTextActionCreator} from "../profile-reducer";
+
+export const Action = {
+    ADD_POST: 'ADD-POST',
+    ADD_MESSAGE: 'ADD-MESSAGE',
+    ADD_NEW_POST: 'ADD-NEW-POST-TEXT',
+    ADD_MESSAGE_TEXT: 'ADD-NEW-MESSAGE-TEXT',
+    FOLLOW: 'FOLLOW-USER',
+    UNFOLLOW: 'UNFOLLOW-USER',
+    SET_USERS: "SET-USERS"
 }
-export type AddMessageActionType = {
-    type: 'ADD-MESSAGE'
-    text: string
-}
-export type AddNewPostTextActionType = {
-    type: 'ADD-NEW-POST-TEXT'
-    text: string
-}
-export type AddNewMessageTextActionType = {
-    type: 'ADD-NEW-MESSAGE-TEXT'
-    text: string
-}
+
+export type AddPostActionType = ReturnType<typeof addPostActionCreator>
+export type AddMessageActionType = ReturnType<typeof addMessageActionCreator>
+export type AddNewPostTextActionType = ReturnType<typeof addPostTextActionCreator>
+export type AddNewMessageTextActionType = ReturnType<typeof addMessageTextActionCreator>
+export type FollowUserAC = ReturnType<typeof followUserAC>
+export type UnfollowUserAC = ReturnType<typeof unfollowUserAC>
+export type SetUsersAC = ReturnType<typeof setUsersAC>
+
 export type ActionType =
     AddPostActionType
     | AddNewPostTextActionType
     | AddNewMessageTextActionType
     | AddMessageActionType
+    | FollowUserAC
+    | UnfollowUserAC
+    | SetUsersAC
 
-
-export const ActionType = {
-    ADD_POST: 'ADD-POST',
-    ADD_MESSAGE: 'ADD-MESSAGE',
-    ADD_NEW_POST: 'ADD-NEW-POST-TEXT',
-    ADD_MESSAGE_TEXT: 'ADD-NEW-MESSAGE-TEXT'
-}
 export type DialogType = {
     id: string
     src: string

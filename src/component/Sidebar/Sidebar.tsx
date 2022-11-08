@@ -40,12 +40,12 @@ export const Sidebar = () => {
                     </a>
                 </li>
                 <li className={style.listItem}>
-                    <a className={style.listLink} href="#">
+                    <NavLink to={'/friends'}  className={style.listLink} href="#">
                         <div className={style.linkContainer}>
                             <img className={style.icon} src={home} alt=""/>
                             <span>Друзья</span>
                         </div>
-                    </a>
+                    </NavLink>
                 </li>
                 <li className={style.listItem}>
                     <a className={style.listLink} href="#">
