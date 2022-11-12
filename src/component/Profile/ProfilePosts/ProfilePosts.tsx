@@ -14,7 +14,7 @@ export const ProfilePosts: React.FC<ProfilePropsType> = ({postDataPage,addNewPos
     }
 
     const addNewPostHandler = () => {
-        addNewPost(newPostText)
+        addNewPost()
         onChangeTextArea('')
     }
     return (

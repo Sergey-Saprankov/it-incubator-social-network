@@ -1,33 +1,10 @@
 import React from "react";
 import {addMessageActionCreator, addMessageTextActionCreator} from "../../../redux/message-reducer";
-import {ActionType, DataType, MessagePageType} from "../../../redux/type/type";
+import {MessagePageType} from "../../../redux/type/type";
 import {Message} from "./Message";
 import {connect} from "react-redux";
 import {StoreType} from "../../../redux/redux-store";
 import {Dispatch} from "redux";
-
-
-// type MessageType = {
-//     messagesPage: MessagePageType
-//     dispatch: (action: ActionType) => void
-// }
-//
-// export const MessageContainer: React.FC<MessageType> = ({messagesPage, dispatch}) => {
-//
-//     const onChangeMessage = (value: string) => {
-//                 dispatch(addMessageTextActionCreator(value))
-//     }
-//
-//     const addMessage = (value: string) => {
-//             dispatch(addMessageActionCreator(value))
-//             dispatch(addMessageTextActionCreator(''))
-//
-//     }
-//
-//     return (
-//         <Message  onChangeMessage={onChangeMessage} addMessage={addMessage} messagesPage={messagesPage}/>
-//     )
-// }
 
 export type MapStateToPropsType = {
     messagesPage: MessagePageType
@@ -35,7 +12,7 @@ export type MapStateToPropsType = {
 
 export type MapDispatchToPropsType = {
     onChangeMessage: (value: string) => void
-    addMessage: (value: string) => void
+    addMessage: () => void
 }
 
 export type MessagePropsType = MapStateToPropsType & MapDispatchToPropsType;
@@ -51,8 +28,8 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
         onChangeMessage: (value: string) => {
             dispatch(addMessageTextActionCreator(value))
         },
-        addMessage: (value: string) => {
-            dispatch(addMessageActionCreator(value))
+        addMessage: () => {
+            dispatch(addMessageActionCreator())
             dispatch(addMessageTextActionCreator(''))
         }
     }

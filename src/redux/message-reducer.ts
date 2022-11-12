@@ -1,23 +1,26 @@
 import {v1} from "uuid";
 import avatar from "../img/avatar.jpg";
 import {
-    Action,
-    ActionType, AddMessageActionType, AddNewMessageTextActionType,
+    ACTION,
+    ActionType,
     DialogType,
     MessagePageType
 } from "./type/type";
 
+
+export type AddMessageACType = ReturnType<typeof addMessageActionCreator>
+export type AddNewMessageTextACType = ReturnType<typeof addMessageTextActionCreator>
+
 export const addMessageTextActionCreator = (text: string) => {
     return {
-        type: Action.ADD_MESSAGE_TEXT,
-        payload: text
+        type: ACTION.ADD_MESSAGE_TEXT,
+        text: text
     } as const
 }
 
-export const addMessageActionCreator = (text: string) => {
+export const addMessageActionCreator = () => {
     return {
-        type: Action.ADD_MESSAGE,
-        payload: text
+        type: ACTION.ADD_MESSAGE
     } as const
 }
 
@@ -66,15 +69,14 @@ const initialState: MessagePageType = {
     ,
 }
 
-const messageReducer = (state: MessagePageType = initialState, action: AddMessageActionType | AddNewMessageTextActionType): MessagePageType => {
+const messageReducer = (state: MessagePageType = initialState, action: ActionType): MessagePageType => {
     let stateCopy: MessagePageType;
 
     switch (action.type) {
-        case Action.ADD_MESSAGE_TEXT:
-            stateCopy = {...state};
-            stateCopy.newMessage = action.payload;
-            return stateCopy;
-        case Action.ADD_MESSAGE:
+        case ACTION.ADD_MESSAGE_TEXT:
+            return {...state, newMessage: action.text};
+
+        case ACTION.ADD_MESSAGE:
             const newMessage: DialogType = {
                 id: v1(),
                 src: avatar,

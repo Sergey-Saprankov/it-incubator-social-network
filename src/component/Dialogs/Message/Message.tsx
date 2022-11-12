@@ -1,15 +1,9 @@
 import React, {ChangeEvent} from "react";
 import style from "./Message.module.css";
 import {addMessageActionCreator, addMessageTextActionCreator} from "../../../redux/message-reducer";
-import {ActionType, AddNewPostTextActionType, AddPostActionType, MessagePageType} from "../../../redux/type/type";
+
 import {MessagePropsType} from "./MessageContainer";
 
-
-// type MessageType = {
-//     messagesPage: MessagePageType
-//     addMessage: (value: string) => void
-//     onChangeMessage: (value: string) => void
-// }
 
 export const Message: React.FC<MessagePropsType> = ({messagesPage, onChangeMessage, addMessage}) => {
 
@@ -18,7 +12,7 @@ export const Message: React.FC<MessagePropsType> = ({messagesPage, onChangeMessa
     }
 
     const onClickHandler = () => {
-        addMessage(messagesPage.newMessage)
+        addMessage()
         onChangeMessage('')
 
     }

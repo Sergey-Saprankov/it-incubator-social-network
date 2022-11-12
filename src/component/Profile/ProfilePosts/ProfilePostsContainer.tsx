@@ -13,7 +13,7 @@ export type MapProfilePostsStateProps = {
 
 export type MapProfilePostsDispatchProps = {
     onChangeTextArea: (value: string) => void
-    addNewPost: (value: string) => void
+    addNewPost: () => void
 }
 
 
@@ -30,8 +30,8 @@ export const mapProfilePostsDispatchProps = (dispatch: Dispatch): MapProfilePost
         onChangeTextArea: (value: string) => {
             dispatch(addPostTextActionCreator(value))
         },
-        addNewPost: (value: string) => {
-            dispatch(addPostActionCreator(value))
+        addNewPost: () => {
+            dispatch(addPostActionCreator())
             dispatch(addPostTextActionCreator(''))
         },
     }

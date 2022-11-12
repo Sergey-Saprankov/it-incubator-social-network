@@ -1,20 +1,24 @@
 import {v1} from "uuid";
 import avatar from "../img/avatar.jpg";
-import {Action, ActionType, AddNewPostTextActionType, AddPostActionType, PostDataPageType, PostType} from "./type/type";
+import {ACTION, ActionType, PostDataPageType, PostType} from "./type/type";
 
-export const addPostActionCreator = (postText: string) => {
+export type AddPostACType = ReturnType<typeof addPostActionCreator>
+export type AddNewPostTextACType = ReturnType<typeof addPostTextActionCreator>
+
+
+export const addPostActionCreator = () => {
     return {
-        type: Action.ADD_POST,
-        payload: postText
+        type: ACTION.ADD_POST,
     } as const
 }
 
 export const addPostTextActionCreator = (postText: string) => {
     return {
-        type: Action.ADD_NEW_POST,
-        payload: postText
+        type: ACTION.ADD_NEW_POST_TEXT,
+        postText
     } as const
 }
+
 
 const initialState: PostDataPageType = {
     posts: [],
@@ -25,26 +29,26 @@ const initialState: PostDataPageType = {
     },
 }
 
-const profileReducer = (state: PostDataPageType = initialState, action:  AddPostActionType | AddNewPostTextActionType): PostDataPageType => {
+const profileReducer = (state: PostDataPageType = initialState, action: ActionType): PostDataPageType => {
     let stateCopy: PostDataPageType;
     switch (action.type) {
-        case Action.ADD_POST:
+        case ACTION.ADD_POST:
             const newPost: PostType = {
                 id: v1(),
                 src: avatar,
                 alt: 'avatar',
                 name: "Сергей Сапранков",
                 date: state.datePost(),
-                post: action.payload,
+                post: state.newPostText,
                 likes: Math.floor(Math.random() * 10)
             }
             stateCopy = {...state, posts: [...state.posts]};
             stateCopy.posts.push(newPost);
             return stateCopy;
 
-        case Action.ADD_NEW_POST:
+        case ACTION.ADD_NEW_POST_TEXT:
             stateCopy = {...state};
-            stateCopy.newPostText = action.payload;
+            stateCopy.newPostText = action.postText;
             return stateCopy;
 
         default:
