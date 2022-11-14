@@ -5,7 +5,7 @@ import {Sidebar} from "./component/Sidebar/Sidebar";
 import {Profile} from "./component/Profile/Profile";
 import {Dialogs} from "./component/Dialogs/Dialogs";
 import {Redirect, Route} from "react-router-dom";
-import {Friends} from "./component/Friends/Friends";
+import {UsersContainer} from "./component/Friends/Friend/UsersContainer";
 
 
 const App = () => {
@@ -21,7 +21,7 @@ const App = () => {
                     <Route path={'/home'}
                            render={() => <Profile/>}/>
                     <Route path={'/dialogs'} render={() => <Dialogs/>}/>
-                    <Route path={'/friends'} render={() => <Friends/>}/>
+                    <Route path={'/friends'} render={() => <UsersContainer/>}/>
                 </div>
             </div>
         </>

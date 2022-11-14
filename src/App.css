@@ -23,4 +23,5 @@ body {
   min-height: 90vh;
   margin: 0 auto;
   padding: 15px 15px;
+  position: relative;
 }

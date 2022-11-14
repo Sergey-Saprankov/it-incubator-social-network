@@ -1,3 +1,9 @@
+.wrapper {
+    width: 85vw;
+    height: 1px;
+    min-height: 90vh;
+}
+
 .container {
     padding: 30px;
     height: 90vh;
@@ -41,4 +47,9 @@
 .text {
     font-size: 14px;
     font-weight: 400;
+}
+
+.selected {
+    font-size: 24px;
+    font-weight: bold;
 }

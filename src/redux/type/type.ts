@@ -1,7 +1,7 @@
 import {
-    FollowUserACType,
-    SetUsersACType,
-    UnfollowUserACType,
+    FollowUserACType, SelectedPageACType, SetTotalUsersCountACType,
+    SetUsersACType, ToggleIsFetchingACType,
+    UnfollowUserACType, UsersType,
 } from "../user-reducer";
 import {
     AddMessageACType,
@@ -19,7 +19,10 @@ export const ACTION = {
     ADD_MESSAGE_TEXT: 'ADD-NEW-MESSAGE-TEXT',
     FOLLOW: 'FOLLOW-USER',
     UNFOLLOW: 'UNFOLLOW-USER',
-    SET_USERS: "SET-USERS"
+    SET_USERS: "SET-USERS",
+    SELECTED_PAGE: "SELECTED-PAGE",
+    SET_USERS_COUNT: "SET-USERS-COUNT",
+    TOGGLE_IS_FETCHING: "TOGGLE-IS-FETCHING"
 } as const
 
 export type ActionType =
@@ -30,6 +33,9 @@ export type ActionType =
     | FollowUserACType
     | UnfollowUserACType
     | SetUsersACType
+    | SelectedPageACType
+    | SetTotalUsersCountACType
+    | ToggleIsFetchingACType
 
 
 export type DialogType = {
@@ -69,4 +75,14 @@ export type DataType = {
     postDataPage: PostDataPageType
     messagesPage: MessagePageType
     dataFriend: FriendsType[]
+}
+
+export type UsersPropsType = {
+    users: UsersType[],
+    pageSize: number
+    totalUsersCount: number,
+    currentPage: number
+    onPageChanged: (p: number) => void
+    followUser: (id: number) => void
+    unfollowUser: (id: number) => void
 }
