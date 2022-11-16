@@ -4,9 +4,9 @@ import {v1} from "uuid";
 export type FollowUserACType = ReturnType<typeof followUserAC>
 export type UnfollowUserACType = ReturnType<typeof unfollowUserAC>
 export type SetUsersACType = ReturnType<typeof setUsersAC>
-export type SelectedPageACType = ReturnType<typeof selectedPage>
-export type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>
-export type ToggleIsFetchingACType = ReturnType<typeof toggleIsFetching>
+export type SelectedPageACType = ReturnType<typeof selectedPageAC>
+export type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCountAC>
+export type ToggleIsFetchingACType = ReturnType<typeof toggleIsFetchingAC>
 
 export type UsersType = {
     name: string
@@ -57,21 +57,21 @@ export const setUsersAC = (users: UsersType[]) => {
     } as const
 }
 
-export const selectedPage = (page: number) => {
+export const selectedPageAC = (page: number) => {
     return {
         type: ACTION.SELECTED_PAGE,
         page
     } as const
 }
 
-export const setTotalUsersCount = (usersCount: number) => {
+export const setTotalUsersCountAC = (usersCount: number) => {
     return {
         type: ACTION.SET_USERS_COUNT,
         usersCount
     } as const
 }
 
-export const toggleIsFetching = (isFetching: boolean) => {
+export const toggleIsFetchingAC = (isFetching: boolean) => {
     return {
         type: ACTION.TOGGLE_IS_FETCHING,
         isFetching

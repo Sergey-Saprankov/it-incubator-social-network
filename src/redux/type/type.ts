@@ -9,7 +9,7 @@ import {
 } from "../message-reducer";
 import {
     AddNewPostTextACType,
-    AddPostACType,
+    AddPostACType, SetUserProfileACType,
 } from "../profile-reducer";
 
 export const ACTION = {
@@ -22,7 +22,8 @@ export const ACTION = {
     SET_USERS: "SET-USERS",
     SELECTED_PAGE: "SELECTED-PAGE",
     SET_USERS_COUNT: "SET-USERS-COUNT",
-    TOGGLE_IS_FETCHING: "TOGGLE-IS-FETCHING"
+    TOGGLE_IS_FETCHING: "TOGGLE-IS-FETCHING",
+    SET_USER: "SET-USER"
 } as const
 
 export type ActionType =
@@ -36,6 +37,7 @@ export type ActionType =
     | SelectedPageACType
     | SetTotalUsersCountACType
     | ToggleIsFetchingACType
+    | SetUserProfileACType
 
 
 export type DialogType = {
@@ -66,10 +68,36 @@ export type  PostType = {
     post: string
     likes: number
 }
+
+export type ContactsType = {
+    facebook: string | null
+    website: string | null
+    vk: string | null
+    twitter: string | null
+    instagram: string | null
+    youtube: string | null
+    github: string | null
+    mainLink: string | null
+}
+
+export type UserProfileDataType = {
+    aboutMe: string
+    contacts: ContactsType
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: {
+        small: string
+        large: string
+    }
+} | null
+
 export type PostDataPageType = {
     posts: PostType[]
     newPostText: string
     datePost: () => string
+    userProfileData: UserProfileDataType
 }
 export type DataType = {
     postDataPage: PostDataPageType
@@ -85,4 +113,9 @@ export type UsersPropsType = {
     onPageChanged: (p: number) => void
     followUser: (id: number) => void
     unfollowUser: (id: number) => void
+}
+
+
+export type ProfilePropsType = {
+    userProfileInfo: UserProfileDataType
 }

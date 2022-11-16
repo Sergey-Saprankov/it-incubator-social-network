@@ -1,9 +1,10 @@
 import {v1} from "uuid";
 import avatar from "../img/avatar.jpg";
-import {ACTION, ActionType, PostDataPageType, PostType} from "./type/type";
+import {ACTION, ActionType, ContactsType, PostDataPageType, PostType, UserProfileDataType} from "./type/type";
 
 export type AddPostACType = ReturnType<typeof addPostActionCreator>
 export type AddNewPostTextACType = ReturnType<typeof addPostTextActionCreator>
+export type SetUserProfileACType = ReturnType<typeof setUserProfileAC>
 
 
 export const addPostActionCreator = () => {
@@ -19,8 +20,16 @@ export const addPostTextActionCreator = (postText: string) => {
     } as const
 }
 
+export const setUserProfileAC = (user: UserProfileDataType) => {
+    return {
+        type: ACTION.SET_USER,
+        user
+    }
+}
+
 
 const initialState: PostDataPageType = {
+    userProfileData: null,
     posts: [],
     newPostText: '',
     datePost() {
@@ -50,6 +59,9 @@ const profileReducer = (state: PostDataPageType = initialState, action: ActionTy
             stateCopy = {...state};
             stateCopy.newPostText = action.postText;
             return stateCopy;
+
+        case ACTION.SET_USER:
+            return {...state, userProfileData: action.user};
 
         default:
             return state;

@@ -6,6 +6,8 @@ import {Profile} from "./component/Profile/Profile";
 import {Dialogs} from "./component/Dialogs/Dialogs";
 import {Redirect, Route} from "react-router-dom";
 import {UsersContainer} from "./component/Friends/Friend/UsersContainer";
+import {WithUrlDataContainerComponent} from "./component/Profile/ProfileContainer";
+
 
 
 const App = () => {
@@ -18,8 +20,8 @@ const App = () => {
                     <Route exact path="/" render={() => (
                         <Redirect to="/home"/>
                     )}/>
-                    <Route path={'/home'}
-                           render={() => <Profile/>}/>
+                    <Route path={'/home/:userId'}
+                           render={() => <WithUrlDataContainerComponent/>}/>
                     <Route path={'/dialogs'} render={() => <Dialogs/>}/>
                     <Route path={'/friends'} render={() => <UsersContainer/>}/>
                 </div>
