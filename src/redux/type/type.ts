@@ -1,4 +1,5 @@
 import {
+    FollowingInProgressACType,
     FollowUserACType, SelectedPageACType, SetTotalUsersCountACType,
     SetUsersACType, ToggleIsFetchingACType,
     UnfollowUserACType, UsersType,
@@ -11,6 +12,7 @@ import {
     AddNewPostTextACType,
     AddPostACType, SetUserProfileACType,
 } from "../profile-reducer";
+import {SetUserDataAcType, SetUserPhotoACType} from "../auth-reducer";
 
 export const ACTION = {
     ADD_POST: 'ADD-POST',
@@ -23,7 +25,10 @@ export const ACTION = {
     SELECTED_PAGE: "SELECTED-PAGE",
     SET_USERS_COUNT: "SET-USERS-COUNT",
     TOGGLE_IS_FETCHING: "TOGGLE-IS-FETCHING",
-    SET_USER: "SET-USER"
+    SET_USER: "SET-USER",
+    SET_USER_DATA: "SET-USER-DATA",
+    SET_USER_PHOTO: "SET-USER-PHOTO",
+    FOLLOWING_IS_PROGRESS: "FOLLOWING-IS-PROGRESS"
 } as const
 
 export type ActionType =
@@ -38,6 +43,9 @@ export type ActionType =
     | SetTotalUsersCountACType
     | ToggleIsFetchingACType
     | SetUserProfileACType
+    | SetUserDataAcType
+    | SetUserPhotoACType
+    | FollowingInProgressACType
 
 
 export type DialogType = {
@@ -113,6 +121,8 @@ export type UsersPropsType = {
     onPageChanged: (p: number) => void
     followUser: (id: number) => void
     unfollowUser: (id: number) => void
+    followingInProgress: (value: boolean) => void
+    disable: boolean
 }
 
 

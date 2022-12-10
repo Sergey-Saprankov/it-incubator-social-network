@@ -7,7 +7,7 @@ import {ProfilePropsType} from "../../redux/type/type";
 
 
 export const Profile: React.FC<ProfilePropsType> = ({userProfileInfo}) => {
-    console.log(userProfileInfo)
+   
     return (
         <div className={style.container}>
             <ProfileHeader userProfileInfo={userProfileInfo}/>

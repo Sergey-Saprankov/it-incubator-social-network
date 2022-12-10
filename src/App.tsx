@@ -5,15 +5,18 @@ import {Sidebar} from "./component/Sidebar/Sidebar";
 import {Profile} from "./component/Profile/Profile";
 import {Dialogs} from "./component/Dialogs/Dialogs";
 import {Redirect, Route} from "react-router-dom";
-import {UsersContainer} from "./component/Friends/Friend/UsersContainer";
+import {UsersContainer} from "./component/Users/User/UsersContainer";
 import {WithUrlDataContainerComponent} from "./component/Profile/ProfileContainer";
+import {HeaderContainer} from "./component/Header/HeaderContainer";
 
 
 
 const App = () => {
     return (
         <>
-            <Header/>
+            <Route render={() => <HeaderContainer/>}>
+
+            </Route>
             <div className={'mainWrapper'}>
                 <div className={'container'}>
                     <Sidebar/>

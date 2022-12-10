@@ -7,6 +7,7 @@ export type SetUsersACType = ReturnType<typeof setUsersAC>
 export type SelectedPageACType = ReturnType<typeof selectedPageAC>
 export type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCountAC>
 export type ToggleIsFetchingACType = ReturnType<typeof toggleIsFetchingAC>
+export type FollowingInProgressACType = ReturnType<typeof followingInProgressAC>
 
 export type UsersType = {
     name: string
@@ -23,6 +24,7 @@ export type UserInitialStateType = {
     totalUsersCount: number,
     currentPage: number
     isFetching: boolean
+    followingInProgress: boolean
 }
 
 const initialState: UserInitialStateType = {
@@ -31,7 +33,8 @@ const initialState: UserInitialStateType = {
     pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: false
 }
 
 
@@ -78,6 +81,13 @@ export const toggleIsFetchingAC = (isFetching: boolean) => {
     } as const
 }
 
+export const followingInProgressAC = (followingInProgress: boolean) => {
+    return {
+        type: ACTION.FOLLOWING_IS_PROGRESS,
+        followingInProgress
+    } as const
+}
+
 
 export const userReducer = (state: UserInitialStateType = initialState, action: ActionType): UserInitialStateType => {
     switch (action.type) {
@@ -93,6 +103,8 @@ export const userReducer = (state: UserInitialStateType = initialState, action: 
             return {...state, totalUsersCount: action.usersCount}
         case ACTION.TOGGLE_IS_FETCHING:
             return {...state, isFetching: action.isFetching}
+        case ACTION.FOLLOWING_IS_PROGRESS:
+            return {...state, followingInProgress: action.followingInProgress}
         default:
             return state;
     }
