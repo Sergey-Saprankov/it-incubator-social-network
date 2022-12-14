@@ -119,10 +119,9 @@ export type UsersPropsType = {
     totalUsersCount: number,
     currentPage: number
     onPageChanged: (p: number) => void
+    disable: boolean,
     followUser: (id: number) => void
-    unfollowUser: (id: number) => void
-    followingInProgress: (value: boolean) => void
-    disable: boolean
+    unFollowUser: (id: number) => void
 }
 
 

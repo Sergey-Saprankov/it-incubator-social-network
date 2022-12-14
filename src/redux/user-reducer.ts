@@ -1,5 +1,7 @@
 import {ACTION, ActionType} from "./type/type";
 import {v1} from "uuid";
+import {userApi} from "../Api/api";
+import {Dispatch} from "redux";
 
 export type FollowUserACType = ReturnType<typeof followUserAC>
 export type UnfollowUserACType = ReturnType<typeof unfollowUserAC>
@@ -86,6 +88,43 @@ export const followingInProgressAC = (followingInProgress: boolean) => {
         type: ACTION.FOLLOWING_IS_PROGRESS,
         followingInProgress
     } as const
+}
+
+export const getUsersTC = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch<ToggleIsFetchingACType | SetUsersACType | SetTotalUsersCountACType>) => {
+        dispatch(toggleIsFetchingAC(true));
+        userApi.getUsers(currentPage, pageSize).then(data => {
+            dispatch(toggleIsFetchingAC(false));
+            dispatch(setUsersAC(data.items));
+            dispatch(setTotalUsersCountAC(data.totalCount));
+
+        })
+}
+}
+
+export const followUserTC = (id: number) => {
+    return (dispatch: Dispatch<FollowingInProgressACType | FollowUserACType>) => {
+        dispatch(followingInProgressAC(true))
+        userApi.followedUser(id).then(data => {
+            debugger
+            if (data.resultCode === 0) {
+                dispatch(followUserAC(id))
+            }
+            dispatch(followingInProgressAC(false))
+        })
+    }
+}
+
+export const unFollowUserTC = (id: number) => {
+    return (dispatch: Dispatch<FollowingInProgressACType | UnfollowUserACType>) => {
+        dispatch(followingInProgressAC(true))
+        userApi.unfollowedUser(id).then(data => {
+            if (data.resultCode === 0) {
+               dispatch(unfollowUserAC(id))
+            }
+            dispatch(followingInProgressAC(false))
+        })
+    }
 }
 
 
